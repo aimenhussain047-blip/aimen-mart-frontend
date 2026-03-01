@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -11,21 +12,18 @@ const Login = () => {
     try {
       const res = await axios.post('https://aimen-mart-backend.vercel.app/api/auth/login', formData);
       
-      // ✅ Storing Token and User Info in Local Storage
       localStorage.setItem('aimenToken', res.data.token);
       localStorage.setItem('aimenUser', JSON.stringify(res.data.user));
       
       alert(`Welcome back, ${res.data.user.name}!`);
 
-      // ✅ Redirect based on User Role
       if (res.data.user.isAdmin) {
-        navigate('/admin'); // If Admin, go to Admin Panel
+        navigate('/admin');
       } else {
-        navigate('/'); // If regular user, go to Home
+        navigate('/');
       }
       
     } catch (err) {
-      // ✅ English error messages
       alert(err.response?.data?.message || "Login failed. Please check your credentials.");
     }
   };
