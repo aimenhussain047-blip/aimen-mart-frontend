@@ -7,10 +7,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // User check (Sirf buttons ki visibility ke liye)
-  const userData = localStorage.getItem('aimenUser');
-  const user = userData ? JSON.parse(userData) : null;
-
   const showBackButton = location.pathname !== "/";
 
   const handleKeyDown = (e) => {
@@ -19,16 +15,15 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     }
   };
 
-  // Fixed Styling: Is se mobile aur laptop dono par buttons fit ayenge
-  const actionBtnClass = "flex items-center gap-1 md:gap-2 px-2 md:px-3 py-2 rounded-xl border border-gray-100 shadow-sm font-bold text-[10px] md:text-xs uppercase tracking-tight transition-all bg-white text-gray-600 hover:text-[#b89146]";
+  // ✅ Fixed Classes: Is se buttons mobile par chhupenge nahi
+  const actionBtnClass = "flex items-center gap-1 md:gap-2 px-2 md:px-3 py-2 rounded-xl border border-gray-100 shadow-sm font-bold text-[9px] md:text-xs uppercase tracking-tight transition-all bg-white text-gray-600 hover:text-[#b89146]";
 
   return (
     <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
-      {/* Top Main Row */}
       <div className="w-full px-2 md:px-8 py-3 flex justify-between items-center gap-2">
         
         {/* Logo Section */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1 md:gap-4 shrink-0">
           {showBackButton && (
             <button onClick={() => navigate(-1)} className="p-1.5 hover:bg-gray-100 rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5 text-[#1e293b]">
@@ -36,13 +31,13 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               </svg>
             </button>
           )}
-          <Link to="/" className="flex items-center gap-1 group">
+          <Link to="/" className="flex items-center gap-1">
             <div className="bg-[#1e293b] text-white w-7 h-7 md:w-9 md:h-9 flex items-center justify-center rounded-lg font-black text-sm md:text-lg">A</div>
             <span className="text-sm md:text-lg font-black text-[#1e293b] tracking-tighter">AIMEN<span className="text-[#b89146]">MART</span></span>
           </Link>
         </div>
 
-        {/* Search Bar - Desktop (image_18bd10 ki tarah center mein) */}
+        {/* Search Bar - Desktop Only (Center aligned) */}
         <div className="hidden md:flex flex-1 max-w-md mx-4">
           <input 
             type="text" 
@@ -54,13 +49,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           />
         </div>
 
-        {/* Action Buttons - NO 'HIDDEN' CLASSES HERE */}
+        {/* ✅ All Buttons: Hamesha Visible Rahenge */}
         <div className="flex items-center gap-1 md:gap-2 shrink-0">
           <Link to="/admin" className={actionBtnClass}>Portal</Link>
-          
-          {/* Orders Button: Visible for everyone now so it doesn't disappear */}
           <Link to="/my-orders" className={actionBtnClass}>Orders</Link>
-          
           <Link to="/login" className={actionBtnClass}>Account</Link>
 
           {/* Cart Icon */}
@@ -77,7 +69,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         </div>
       </div>
 
-      {/* Mobile Search Row - (image_5c1de8 ka masla hal karne ke liye) */}
+      {/* Mobile Search Row - (Logo ke niche prominent nazar ayegi) */}
       <div className="md:hidden px-4 pb-3">
         <input 
           type="text" 
@@ -85,7 +77,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none shadow-sm" 
+          className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none shadow-sm focus:border-[#b89146]" 
         />
       </div>
     </nav>
