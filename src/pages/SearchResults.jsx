@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
@@ -9,7 +9,6 @@ const SearchResults = () => {
   const [loading, setLoading] = useState(true);
   
   const location = useLocation();
-  //const navigate = useNavigate();
   
   // URL se query nikalne ke liye
   const query = new URLSearchParams(location.search).get('q') || "";
