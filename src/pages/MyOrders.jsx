@@ -11,6 +11,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        // 1. LocalStorage se user ka data nikalna
         const userData = JSON.parse(localStorage.getItem('aimenUser'));
         
         if (!userData) {
@@ -19,6 +20,8 @@ const MyOrders = () => {
           return;
         }
 
+        // 2. ID aur Token nikalna (Backend ke liye zaroori hai)
+        const userId = userData.id || userData._id; 
         const token = userData.token;
 
         const config = {
@@ -27,14 +30,13 @@ const MyOrders = () => {
           },
         };
 
-        // ✅ CHANGE: Aksar "myorders" wala route behtar kaam karta hai
-        // Agar ye kaam na kare toh niche wala purana link hi rehne dein
+        // 3. ✅ SAHI URL: Jo aapke backend ke naye route se match karta hai
         const res = await axios.get(
-          `https://aimen-mart-backend.vercel.app/api/orders/myorders`,
+          `https://aimen-mart-backend.vercel.app/api/orders/user/${userId}`,
           config
         );
 
-        console.log("Orders Data:", res.data);
+        console.log("Orders Data Received:", res.data);
         setOrders(res.data);
       } catch (err) {
         console.error("Error fetching orders:", err);
