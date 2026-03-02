@@ -1,10 +1,12 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; // useParams use karein active check karne ke liye
+import { useNavigate, useParams } from 'react-router-dom'; 
 
 const SidebarCategories = () => {
   const navigate = useNavigate();
-  const { type } = useParams(); // URL se :type uthayega (e.g. automobiles)
+  // MY LOGIC: Using useParams to detect the active category from the URL
+  const { type } = useParams(); 
   
+  // MY CATEGORIES: Static list for my store sidebar
   const categories = [
     "Automobiles", 
     "Clothes and wear", 
@@ -12,8 +14,8 @@ const SidebarCategories = () => {
     "Computer and tech", 
   ];
 
+  // MY NAVIGATION: Converting category name to slug and navigating to category page
   const handleCategoryClick = (cat) => {
-    // ✅ FIXED: Ab ye App.js ke mutabiq /category/automobiles par le kar jayega
     const slug = cat.toLowerCase().trim().replace(/\s+/g, '-');
     navigate(`/category/${slug}`);
   };
@@ -22,8 +24,10 @@ const SidebarCategories = () => {
     <div className="bg-transparent"> 
       <ul className="flex flex-col gap-1">
         {categories.map((cat, index) => {
+          // MY SLUG LOGIC: Keeping it consistent with my App.js routes
           const slug = cat.toLowerCase().trim().replace(/\s+/g, '-');
-          // ✅ Active check karne ke liye URL ka type aur slug match karein
+          
+          // CHECKING ACTIVE STATE: Comparing URL param with my generated slug
           const isActive = type === slug;
 
           return (

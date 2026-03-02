@@ -5,15 +5,19 @@ import Navbar from '../components/Navbar';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [showProducts, setShowProducts] = useState(false); // ✅ Ye control karega view ko
+  
+  // MY STATE: Controlling the view and storing product data
+  const [showProducts, setShowProducts] = useState(false); 
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   
+  // MY INITIAL FORM STATE
   const [newProduct, setNewProduct] = useState({
     name: '', price: '', image: '', description: '', category: '', stock: 10, specs: ''
   });
 
+  // MY LOGIC: Fetching all products from the backend
   const fetchProducts = async () => {
     try {
       const res = await axios.get("https://aimen-mart-backend.vercel.app/api/products");
@@ -25,10 +29,12 @@ const Admin = () => {
     if (showProducts) fetchProducts();
   }, [showProducts]);
 
-  // --- Form Logic (Save or Update) ---
+  // MY FORM LOGIC: Handling both Save and Update actions
   const handleSubmit = async (e) => {
     e.preventDefault();
     let specsObject = {};
+    
+    // Converting the comma-separated string back to an object for the database
     if (typeof newProduct.specs === 'string') {
       newProduct.specs.split(',').forEach(item => {
         const [key, value] = item.split(':');
@@ -55,9 +61,12 @@ const Admin = () => {
     }
   };
 
+  // MY EDIT LOGIC: Pre-filling the form when edit button is clicked
   const handleEditClick = (p) => {
     setIsEditing(true);
     setCurrentId(p._id);
+    
+    // Formatting specs object back to string for the input field
     const specsString = Object.entries(p.specs || {})
       .map(([key, value]) => `${key}: ${value}`)
       .join(', ');
@@ -69,12 +78,14 @@ const Admin = () => {
     });
   };
 
+  // MY RESET LOGIC: Clearing the form fields
   const resetForm = () => {
     setIsEditing(false);
     setCurrentId(null);
     setNewProduct({ name: '', price: '', image: '', description: '', category: '', stock: 10, specs: '' });
   };
 
+  // MY DELETE LOGIC: Removing a product after confirmation
   const handleDelete = async (id) => {
     if (window.confirm("Delete this product permanently?")) {
       try {
@@ -89,14 +100,15 @@ const Admin = () => {
       <Navbar />
       <div className="container mx-auto p-6 md:p-10">
         
-        {/* --- DASHBOARD VIEW (Dabbe wala view) --- */}
+        {/* DASHBOARD VIEW: The main entry point for Admin */}
         {!showProducts ? (
           <div className="max-w-4xl mx-auto text-center mt-10">
             <h1 className="text-4xl font-black mb-12 uppercase tracking-tighter text-gray-800 italic">
               Admin Portal
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Manage Products Click */}
+              
+              {/* Box to manage products */}
               <div 
                 onClick={() => setShowProducts(true)} 
                 className="bg-white p-12 rounded-[2.5rem] shadow-xl border-b-8 border-blue-600 hover:scale-105 cursor-pointer transition-all"
@@ -105,7 +117,7 @@ const Admin = () => {
                 <h2 className="text-2xl font-black uppercase text-gray-800">Manage Products</h2>
               </div>
 
-              {/* View Orders Click */}
+              {/* Box to view orders */}
               <div 
                 onClick={() => navigate('/admin/orders')} 
                 className="bg-white p-12 rounded-[2.5rem] shadow-xl border-b-8 border-gray-400 hover:scale-105 cursor-pointer transition-all"
@@ -116,7 +128,7 @@ const Admin = () => {
             </div>
           </div>
         ) : (
-          /* --- PRODUCT MANAGEMENT VIEW (Aapka naya code) --- */
+          /* PRODUCT MANAGEMENT VIEW: Form and Table layout */
           <div>
             <button 
               onClick={() => setShowProducts(false)} 
@@ -126,7 +138,7 @@ const Admin = () => {
             </button>
             
             <div className="grid lg:grid-cols-3 gap-8">
-              {/* LEFT: FORM (Narrow/Vertical) */}
+              {/* MY FORM SECTION */}
               <div className="lg:col-span-1">
                 <div className="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-blue-500 sticky top-10">
                   <h2 className="text-xl font-bold mb-6 text-gray-700">
@@ -166,7 +178,7 @@ const Admin = () => {
                 </div>
               </div>
 
-              {/* RIGHT: LIST (Wider) */}
+              {/* MY PRODUCT LIST TABLE */}
               <div className="lg:col-span-2">
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden border">
                   <table className="w-full text-left">

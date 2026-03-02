@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const Hero = () => {
   const navigate = useNavigate();
 
+  // MY FUNCTION: Redirecting users to the clothes category
   const handleExploreClick = () => {
     navigate('/category?type=clothes-and-wear');
   };
 
   return (
+    // My main Hero section container with custom rounded corners
     <div className="w-full bg-white border border-gray-200 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-sm flex flex-col md:flex-row min-h-[400px] md:min-h-[480px]">
       
-      {/* 1. Sidebar - Sirf Laptop par dikhega (No Change) */}
+      {/* MY SIDEBAR: Only visible on Desktop view */}
       <div className="hidden lg:block w-[240px] border-r-2 border-gray-100 bg-[#fafbfc] p-8 shrink-0">
         <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-6">
           Categories
@@ -21,13 +23,13 @@ const Hero = () => {
         <SidebarCategories />
       </div>
 
-      {/* 2. Main Banner Area */}
+      {/* MY BANNER: The central part of the hero section */}
       <div className="flex-1 flex flex-col md:flex-row bg-white relative">
         
-        {/* Content Section */}
+        {/* TEXT CONTENT: My headings and call-to-action buttons */}
         <div className="w-full md:w-[48%] px-6 md:pl-10 md:pr-4 py-10 md:py-12 flex flex-col justify-center z-10 order-2 md:order-1">
           
-          {/* Top Actions */}
+          {/* My Hot Deals badge and Explore link */}
           <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-6 md:mb-8">
              <div className="flex items-center gap-2 bg-orange-50 px-3 py-1.5 rounded-full border border-orange-100 shrink-0">
                 <span className="relative flex h-2 w-2">
@@ -56,7 +58,7 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Right Image - Mobile par upar ayegi, Laptop par side mein */}
+        {/* HERO IMAGE: Wallpaper that shows on top for mobile and side for laptop */}
         <div className="w-full md:w-[52%] h-[250px] md:h-auto relative overflow-hidden order-1 md:order-2">
           <img 
             src={Wallpaper} 
@@ -67,7 +69,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 3. Right Side Boxes - Laptop View (No Change) */}
+      {/* MY PROMO BOXES: Shipping, Protection and Promo offers on the right */}
       <div className="hidden xl:flex flex-col w-[270px] bg-[#f8fafc] shrink-0 border-l-2 border-gray-100 p-5 gap-4">
          <div className="bg-white p-6 rounded-[1.5rem] border-2 border-transparent shadow-sm flex flex-col gap-4 group hover:border-[#b89146] transition-all cursor-default">
             <div className="w-12 h-12 bg-[#1e293b] text-white rounded-2xl flex items-center justify-center text-2xl">🚀</div>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Regions = () => {
+  // MY COUNTRY DATA: List of regions with their respective shop URLs and flag icons
   const countries = [
     { name: "United Arab Emirates", url: "shopname.ae", flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg" },
     { name: "Australia", url: "shopname.au", flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg" },
@@ -14,19 +15,26 @@ const Regions = () => {
   ];
 
   return (
+    // My main regions section container
     <div className="my-10 px-4 pb-10">
       <h3 className="text-xl font-bold mb-6 text-gray-800">Suppliers by Region</h3>
+      
+      {/* MY GRID: Responsive layout for different screen sizes (Mobile: 2 cols, Desktop: 5 cols) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {countries.map((country, index) => (
+          // Mapping through my countries to display flags and shop info
           <div
             key={index}
             className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-50 transition cursor-pointer border border-gray-100 shadow-sm"
           >
+            {/* My Flag Image: Fixed size with rounded corners */}
             <img 
               src={country.flag} 
               alt={country.name} 
               className="w-16 h-10 object-cover rounded-md border mb-2"
             />
+            
+            {/* My Country Name and Shop URL display */}
             <p className="text-sm font-medium text-gray-800 text-center">{country.name}</p>
             <p className="text-xs text-gray-500 mt-1 text-center">{country.url}</p>
           </div>

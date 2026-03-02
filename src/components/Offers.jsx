@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 const Offers = () => {
-  // ✅ 1. Maine har item ke saath uski category add kar di hai
+  // MY DEALS LIST: Added category to each item so it redirects correctly
   const deals = [
     { name: "Smart watches", disc: "-25%", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200", category: "computer-and-tech" },
     { name: "Laptops", disc: "-15%", img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200", category: "computer-and-tech" },
@@ -12,8 +12,10 @@ const Offers = () => {
   ];
 
   return (
+    // My main container for deals and the countdown timer
     <div className="flex flex-col md:flex-row bg-white border border-gray-200 rounded-lg overflow-hidden my-6">
-      {/* Timer Section */}
+      
+      {/* MY TIMER SECTION: Showing the remaining time for offers */}
       <div className="p-6 border-r border-gray-200 md:w-1/4">
         <h3 className="text-lg font-bold text-gray-800">Deals and offers</h3>
         <p className="text-gray-400 text-sm mb-4">Hygiene equipments</p>
@@ -27,10 +29,10 @@ const Offers = () => {
         </div>
       </div>
 
-      {/* Deals Grid */}
+      {/* MY DEALS GRID: Mapping through my deals array */}
       <div className="grid grid-cols-2 md:grid-cols-5 flex-1">
         {deals.map((item, index) => (
-          /* ✅ 2. FIXED PATH: Ab ye dynamic category par le kar jaye ga */
+          /* MY DYNAMIC LINK: Redirects to the specific category page */
           <Link 
             key={index} 
             to={`/category/${item.category}`} 
