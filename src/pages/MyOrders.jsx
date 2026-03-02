@@ -11,32 +11,30 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // 1. LocalStorage se user ka data nikalna
         const userData = JSON.parse(localStorage.getItem('aimenUser'));
         
-        // 2. Check: Kya user login hai?
         if (!userData) {
           setError("Please login to see your orders.");
           setLoading(false);
           return;
         }
 
-        const userId = userData.id || userData._id;
         const token = userData.token;
 
-        // 3. API Call with Headers (Token bhejna zaroori hai)
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         };
 
+        // ✅ CHANGE: Aksar "myorders" wala route behtar kaam karta hai
+        // Agar ye kaam na kare toh niche wala purana link hi rehne dein
         const res = await axios.get(
-          `https://aimen-mart-backend.vercel.app/api/orders/user/${userId}`,
+          `https://aimen-mart-backend.vercel.app/api/orders/myorders`,
           config
         );
 
-        console.log("Orders Data:", res.data); // Testing ke liye
+        console.log("Orders Data:", res.data);
         setOrders(res.data);
       } catch (err) {
         console.error("Error fetching orders:", err);
