@@ -3,51 +3,49 @@ import { Link } from 'react-router-dom';
 
 const RecommendedItems = ({ products }) => {
   return (
-    <div className="my-8 px-3">
-      <h3 className="text-lg font-bold mb-5 text-gray-800 ml-1">Recommended items</h3>
+    <div className="my-6 px-3">
+      <h2 className="text-lg font-bold mb-4 text-gray-800 ml-1">Recommended items</h2>
       
-      {/* 📱 Mobile: 2 Columns | 💻 Laptop: 4 Columns */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+      {/* 📱 2 Columns for Mobile | 💻 4 for Desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         
         {products && products.length > 0 ? (
           products.map((item) => (
-            <div key={item._id} className="bg-white border border-gray-100 rounded-xl overflow-hidden flex flex-col h-full hover:shadow-md transition-all">
+            <div key={item._id} className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm flex flex-col">
               
-              {/* 🖼️ Image Section: Height kam ki hai aur object-cover lagaya hai taake jagah khali na rahe */}
-              <div className="w-full h-32 md:h-44 bg-[#f8f9fa] relative">
+              {/* 🖼️ Image: Fixed aspect ratio taake fuzool jagah khatam ho jaye */}
+              <div className="w-full aspect-[4/5] bg-[#f8f9fa] flex items-center justify-center p-2">
                 <img 
                   src={item.image || item.img} 
                   alt={item.name} 
-                  className="w-full h-full object-contain p-2 mix-blend-multiply" 
+                  className="w-full h-full object-contain mix-blend-multiply" 
                   onError={(e) => { e.target.src = "https://via.placeholder.com/300?text=AimenMart" }}
                 />
               </div>
               
-              {/* 📝 Content Section: Padding kam ki hai taake card compact lage */}
-              <div className="p-3 flex flex-col flex-grow">
-                <p className="font-black text-gray-900 text-base md:text-xl leading-none">${item.price}</p>
+              {/* 📝 Content: Compact padding aur fixed heights */}
+              <div className="p-3">
+                <p className="font-black text-gray-900 text-base leading-none">${item.price}</p>
                 
-                <p className="text-[11px] md:text-sm text-gray-600 mt-1.5 font-bold line-clamp-1">
+                <h4 className="text-[11px] md:text-sm text-gray-600 mt-2 font-bold line-clamp-1 leading-tight">
                   {item.name}
-                </p>
+                </h4>
 
-                {/* Specs Section: Sirf 1 line taake card lamba na ho */}
-                <div className="mt-2 flex-grow">
-                  {item.specs ? (
-                    Object.entries(item.specs).slice(0, 1).map(([key, value]) => (
-                      <p key={key} className="text-[9px] md:text-[10px] text-gray-400 truncate">
-                        {value}
-                      </p>
-                    ))
+                {/* Specs: Sirf aik line taake card uniform rahe */}
+                <div className="mt-1 min-h-[14px]">
+                  {item.specs && Object.values(item.specs).length > 0 ? (
+                    <p className="text-[9px] text-gray-400 truncate">
+                      {Object.values(item.specs)[0]}
+                    </p>
                   ) : (
-                    <p className="text-[9px] text-gray-400 italic">Premium Quality</p>
+                    <p className="text-[9px] text-gray-400 italic opacity-0">.</p>
                   )}
                 </div>
 
-                {/* Button: Compact for mobile */}
+                {/* View Details Button: Sleek and small */}
                 <Link 
                   to={`/product/${item._id}`} 
-                  className="mt-3 bg-[#2563eb] text-white text-center py-2 rounded-lg text-[10px] font-black uppercase tracking-tight"
+                  className="mt-3 block w-full bg-[#2563eb] text-white text-center py-2 rounded-lg text-[10px] font-black uppercase tracking-tight hover:bg-blue-700 transition-colors"
                 >
                   View Details
                 </Link>
@@ -55,7 +53,7 @@ const RecommendedItems = ({ products }) => {
             </div>
           ))
         ) : (
-          <div className="col-span-full text-center py-10 text-gray-400 italic font-bold bg-gray-50 rounded-xl">
+          <div className="col-span-full text-center py-8 text-gray-400 italic text-sm">
              No items found.
           </div>
         )}
